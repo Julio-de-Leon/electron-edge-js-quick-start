@@ -13,10 +13,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\ExternalLibrary\ExternalLibrary.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <Reference Include="EmailSender_Outlook">
       <HintPath>.\bin\Debug\net7.0\EmailSender_Outlook.dll</HintPath>
       <Private>true</Private>
@@ -30,9 +26,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\shared\ExternalLibarary.cs">
-      <Link>ExternalLibarary.cs</Link>
-    </Compile>
     <Compile Include="..\shared\LocalMethods.cs">
       <Link>LocalMethods.cs</Link>
     </Compile>
