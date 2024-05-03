@@ -1,5 +1,6 @@
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS']=true
 const {app, BrowserWindow, ipcMain} = require("electron");
+const path = require('node:path')
 const runner = require('./app.js')
 
 var version = process.argv[1].replace('--', '');
@@ -33,6 +34,12 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  mainWindow.webContents.openDevTools();
+  
+  ipcMain.on('createOutlook', (event, {toEmail, body, subject, ccEmail, bccEmail, attachment }) => {
+    runner.invokeCreateOutlook(mainWindow, { toEmail, body, subject, ccEmail, bccEmail, attachment });
   })
 }
 

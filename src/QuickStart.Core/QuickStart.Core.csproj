@@ -17,6 +17,13 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Reference Include="EmailSender_Outlook">
+      <HintPath>.\bin\Debug\net7.0\EmailSender_Outlook.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="EdgeJs">
       <HintPath>..\..\node_modules\electron-edge-js\lib\bootstrap\bin\Release\net6.0\EdgeJs.dll</HintPath>
       <Private>true</Private>

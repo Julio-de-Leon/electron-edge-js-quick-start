@@ -4,48 +4,37 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using EmailSender_Outlook;
 
 namespace QuickStart
 {
     public class LocalMethods
     {
-        public async Task<object> GetAppDomainDirectory(dynamic input)
+        public async Task<object> CreateOutlook(dynamic input)
         {
-            return AppDomain.CurrentDomain.BaseDirectory;
-        }
+            var toEmail = input.toEmail;
+            var body = input.body;
+            var subject = input.subject;
+            var ccEmail = input.ccEmail;
+            var bccEmail = input.bccEmail;
+            var attachment = input.attachment;
+            
+            Console.WriteLine(toEmail);
+            Console.WriteLine(body);
+            Console.WriteLine(subject);
+            Console.WriteLine(ccEmail);
+            Console.WriteLine(attachment);
+            Console.WriteLine(bccEmail);
 
-        public async Task<object> GetCurrentTime(dynamic input)
-        {
-            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        }
-
-        public async Task<object> UseDynamicInput(dynamic input)
-        {
-            return $".NET Standard welcomes {input}";
-        }
-        public async Task<object> ThrowException(dynamic input)
-        {
-            throw new Exception("Sample Exception");
-        }
-        
-        public async Task<object> ListCertificates(dynamic input)
-        {
-            X509Store store = new X509Store((string)input.storeName, (StoreLocation)Enum.Parse(typeof(StoreLocation), (string)input.storeLocation));
-            store.Open(OpenFlags.ReadOnly);
-            try
+            List<string> filePaths = new List<string>
             {
-                List<string> result = new List<string>();
-                foreach (X509Certificate2 certificate in store.Certificates)
-                {
-                    result.Add(certificate.Subject);
-                }
+                attachment,
+            };
 
-                return result;
-            }
-            finally
-            {
-                store.Close();
-            }
+            var emailSender = new EmailSender();
+            emailSender.SendEmail(subject, body, toEmail, ccEmail, bccEmail, filePaths);
+
+            return "CREATING EMAIL...";
         }
     }
 }

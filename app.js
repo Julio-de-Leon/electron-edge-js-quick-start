@@ -18,88 +18,18 @@ var edge = require('electron-edge-js');
 var baseDll = path.join(baseNetAppPath, namespace + '.dll');
 
 var localTypeName = 'QuickStart.LocalMethods';
-var externalTypeName = 'QuickStart.ExternalMethods';
 
-var getAppDomainDirectory = edge.func({
+var createOutlook = edge.func({
     assemblyFile: baseDll,
     typeName: localTypeName,
-    methodName: 'GetAppDomainDirectory'
+    methodName: 'CreateOutlook'
 });
 
-var getCurrentTime = edge.func({
-    assemblyFile: baseDll,
-    typeName: localTypeName,
-    methodName: 'GetCurrentTime'
-});
-
-var useDynamicInput = edge.func({
-    assemblyFile: baseDll,
-    typeName: localTypeName,
-    methodName: 'UseDynamicInput'
-});
-
-var getPerson = edge.func({
-    assemblyFile: baseDll,
-    typeName: externalTypeName,
-    methodName: 'GetPersonInfo'
-});
-
-var handleException = edge.func({
-    assemblyFile: baseDll,
-    typeName: localTypeName,
-    methodName: 'ThrowException'
-});
-
-var getItem = edge.func({
-    source: function () {/* 
-        using System.Threading.Tasks;
-
-            public class Person
-            {
-                public string Name = "Peter Smith";
-                public string Email = "peter.smith@electron-edge-js-quick-start.com";
-                public int Age = 35;
-            }
-
-            public class Startup
-            {
-                public async Task<object> Invoke(dynamic input)
-                {
-                    Person person = new Person();
-                    return person;
-                }
-            }  
-    */}
-});
-
-exports.run = function (window) {
-    getItem('', function(error, result) {
+exports.invokeCreateOutlook = function (window, {toEmail, body, subject, ccEmail, bccEmail, attachment}) {
+    createOutlook({toEmail, body, subject, ccEmail, bccEmail, attachment}, function(error, result) {
         if (error) throw error;
-        window.webContents.send("fromMain", 'getItem', JSON.stringify( result, null, 2 ));
-    });
-    getAppDomainDirectory('', function(error, result) {
-        if (error) throw error;
-        window.webContents.send("fromMain", 'getAppDomainDirectory', result);
-    });
-    getCurrentTime('', function(error, result) {
-        if (error) throw error;
-        window.webContents.send("fromMain", 'getCurrentTime', result);
-    });
+        window.webContents.send("fromMain", 'createOutlook', result);
 
-    useDynamicInput('Node.Js', function(error, result) {
-        if (error) throw error;
-        window.webContents.send("fromMain", 'useDynamicInput', result);
-    });
-
-    try{
-        handleException('', function(error, result) { });
-
-    }catch(e){
-        window.webContents.send("fromMain", 'handleException', e.Message);
-    }
-
-    getPerson('', function(error, result) {
-        if (error) throw error;
-        window.webContents.send("fromMain", 'getPerson', result);
+        window.setTitle(result);
     });
 }
