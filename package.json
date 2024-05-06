@@ -36,14 +36,6 @@
       "extraFiles": [
         "./src/QuickStart.Core/bin/Debug/net7.0/**"
       ]
-    },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false,
-      "allowElevation": true,
-      "unicode": true,
-      "deleteAppDataOnUninstall": true,
-      "runAfterFinish": true
     }
   }
 }
