@@ -6,9 +6,12 @@
   "scripts": {
     "start": "electron --core .",
     "start:core": "electron --core .",
-    "start:standard": "electron --standard ."
+    "start:standard": "electron --standard .",
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
-  "repository": "https://github.com/agracio/electron-edge-js-quick-start",
+  "author": "Redcore Solutions",
   "keywords": [
     "Electron",
     "quick",
@@ -22,5 +25,26 @@
   "dependencies": {
     "electron": "^30.0.1",
     "electron-edge-js": "^30.0.1"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.13.3"
+  },
+  "win": {
+    "target": "nsis",
+    "extraFiles": ["./src/QuickStart.Core/bin/Debug/net7.0/**"]
+  },
+  "nsis": {
+    "oneClick": true,
+    "perMachine": false,
+    "allowElevation": true,
+    "unicode": true,
+    "deleteAppDataOnUninstall": true,
+    "runAfterFinish": true
+  },
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   }
 }
