@@ -3,7 +3,7 @@ const path = require('path');
 var net = process.argv[1].replace('--', '');
 var namespace = 'QuickStart.' + net.charAt(0).toUpperCase() + net.substr(1);
 if(net === 'core') net = '';
-var version = net === 'standard' ? '2.0' : '7.0'
+var version = net === 'standard' ? '2.0' : '6.0'
 
 const baseNetAppPath = path.join(__dirname, '/src/'+ namespace +'/bin/Debug/net' + net + version);
 

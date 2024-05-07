@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
@@ -14,7 +14,7 @@
   
   <ItemGroup>
     <Reference Include="EmailSender_Outlook">
-      <HintPath>.\bin\Debug\net7.0\EmailSender_Outlook.dll</HintPath>
+      <HintPath>.\bin\Debug\net6.0\EmailSender_Outlook.dll</HintPath>
       <Private>true</Private>
     </Reference>
   </ItemGroup>

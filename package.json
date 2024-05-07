@@ -6,7 +6,6 @@
   "scripts": {
     "start": "electron --core .",
     "start:core": "electron --core .",
-    "start:standard": "electron --standard .",
     "app:dir": "electron-builder --dir",
     "app:dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
@@ -26,16 +25,43 @@
     "electron-edge-js": "^30.0.1"
   },
   "devDependencies": {
-    "electron": "^30.0.2",
+    "electron": "30.0.1",
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "your.id",
+    "asar": true,
+    "productName": "electron-edge-js-quick-start",
+    "appId": "app.electron-edge-js.quick-start",
     "win": {
       "target": "nsis",
       "extraFiles": [
-        "./src/QuickStart.Core/bin/Debug/net7.0/**"
+        "./src/QuickStart.Core/bin/Debug/net6.0/**"
       ]
+    },
+    "mac": {
+      "category": "public.app-category.business",
+      "target": [
+        "dmg"
+      ],
+      "extraDistFiles": [
+        "src/QuickStart.Core/bin/Debug/net6.0/**"
+      ],
+      "asarUnpack": [
+        "src/QuickStart.Core/bin/Debug/net6.0/**"
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": true,
+      "unicode": true,
+      "deleteAppDataOnUninstall": true,
+      "runAfterFinish": true,
+      "artifactName": "${productName} Setup ${version} ${os}.${ext}"
+    },
+    "dmg": {
+      "title": "${productName} Setup ${version}",
+      "artifactName": "${productName} Setup ${version} ${os}.${ext}"
     }
   }
 }
